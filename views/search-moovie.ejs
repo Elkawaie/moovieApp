@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!-- On pense a bien inclure nos deux template -->
+<%- include ('partials/nav') -%>
+<h1>Votre recherche sur <em>Moovie DB</em></h1>
+<div>
+    <input type="text" name="term" id="term"
+           placeholder="Veuillez saisir ici titre du
+film">
+    <button id="search">Chercher</button>
+    <div id="result"></div>
+</div>
+<%- include ('partials/footer') -%>
+</body>
+</html>
+<script>
+    const axios = require('axios');
+    const API_KEY = '97484e1e36af70d31a40a628b9f4595d'
+    const term = document.querySelector('#term')
+    const btn = document.querySelector('#search')
+
+    btn.addEventListener('click', search);
+
+    let resultsDiv = document.querySelector('#result')
+    function search(){
+        const query = `https://api.themoviedb.org/3/search/movie?query=${term.value}&api_key=${API_KEY}&language=fr-FR&page=1&include_adult=false`
+    }
+</script>
