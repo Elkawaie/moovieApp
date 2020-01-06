@@ -21,8 +21,9 @@ film">
 <%- include ('partials/footer') -%>
 </body>
 </html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    const axios = require('axios');
+
     const API_KEY = '97484e1e36af70d31a40a628b9f4595d'
     const term = document.querySelector('#term')
     const btn = document.querySelector('#search')
@@ -32,5 +33,22 @@ film">
     let resultsDiv = document.querySelector('#result')
     function search(){
         const query = `https://api.themoviedb.org/3/search/movie?query=${term.value}&api_key=${API_KEY}&language=fr-FR&page=1&include_adult=false`
+        axios.get(query).then(
+            function(res){
+                displayResultat(res.data.results)
+                console.log(res.data)
+            }
+        )
+    }
+
+    function displayResultat(results){
+        resultsDiv.innerHTML = '';
+        console.log(results)
+        for(let result of results){
+            console.log(result.title)
+            let movieDiv = document.createElement('div');
+            movieDiv.innerHTML = result.title
+            resultsDiv.appendChild(movieDiv)
+        }
     }
 </script>
