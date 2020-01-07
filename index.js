@@ -8,6 +8,29 @@ let path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
+
+//On récupére notre librairie mongoose
+const mongoose = require('mongoose')
+// url mongodb                  user: motdepasse                                /name of DB
+mongoose.connect('mongodb+srv://root:formation@m2icluster-kpkda.gcp.mongodb.net/films?retryWrites=true&w=majority');
+//On déclare une connection dans la constante db
+const db  = mongoose.connection;
+
+// On gére l'erreur et la reussite de la connexion via .on et .once
+db.on('error', console.error.bind(console, 'Erreur de connexion: Aucun accés à la DB'))
+db.once('open', ()=>{
+    console.log('Connection réussite')
+})
+// On déclare un schema "mongoose"
+const movieSchema = mongoose.Schema({
+    title: String,
+    year: Number
+})
+// On attribut le schema a la Constante Movie
+const Movie = mongoose.model('Movie', movieSchema)
+// ( Next dans la route /moovie/add )
+
+
 // On déclare un tableau d'objet Json dans le but de simuler un retour d'une BDD
 let films = [
     {title: 'Le seigneur des anneaux: La comunauté de l\'anneau', year:2001},
@@ -40,7 +63,6 @@ app.get('/moovies', (req,res)=>{
 app.get('/moovies/search', (req,res)=>{
     res.render('search-moovie')
 })
-
 app.get('/moovies/add', (req,res)=>{
     res.render('addMoovie', {films:films})
 });
@@ -51,14 +73,24 @@ app.post('/moovies/add', upload.fields([]), (req,res)=>{
     }else{
         const formData = req.body;
         console.log('formData', formData);
-        const newMoovie = {
+        //On instancie notre Model et on lui attribut les valeurs correspondante
+        const myMovie = new Movie({title: req.body.titrefilm, year: req.body.anneefilm});
+        // On gére la persistance de l'objet avec la methode error first
+        myMovie.save((err, savedMovie)=>{
+            if(err){
+                console.log(err)
+            }else{
+                console.log("Votre film "+ savedMovie.title +" A bien été ajouté")
+            }
+        })
+  /*      const newMoovie = {
             title: req.body.titrefilm,
             year: req.body.anneefilm
         };
         films.push(newMoovie);
         console.log(films)
         res.sendStatus(201)
-
+*/
     }
 })
 

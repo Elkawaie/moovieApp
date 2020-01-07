@@ -21,9 +21,11 @@ film">
 <%- include ('partials/footer') -%>
 </body>
 </html>
+<!-- on récupére notre libraire AJAX ( axios) -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-
+// on écrit du javascript ici, et on déclare des constantes
+// Et variable
     const API_KEY = '97484e1e36af70d31a40a628b9f4595d'
     const term = document.querySelector('#term')
     const btn = document.querySelector('#search')
@@ -31,21 +33,28 @@ film">
     btn.addEventListener('click', search);
 
     let resultsDiv = document.querySelector('#result')
+//On crée une fonction search pour notre évenement
     function search(){
+        // On déclare une constante qui va être une URL dépendante des paramétres
+        // passer dans les champs
         const query = `https://api.themoviedb.org/3/search/movie?query=${term.value}&api_key=${API_KEY}&language=fr-FR&page=1&include_adult=false`
+        //On tuilise axios et la methode get qui prend en paramétre une URL d'api
         axios.get(query).then(
+            //On récupére la réponse via le then de la methode get
             function(res){
+                //On crée une fonction qui va nous afficher la réponse en html
                 displayResultat(res.data.results)
-                console.log(res.data)
             }
         )
     }
-
+// On crée notre fonction pour afficher
     function displayResultat(results){
+        //On vide a chaque recherche la div résultat
         resultsDiv.innerHTML = '';
-        console.log(results)
+        // On récupére le paramére  results qui n'ai qu'un tableau de film
         for(let result of results){
-            console.log(result.title)
+            // On structure de l'html avec javascript
+            // et on crée autant d'html que d'objet
             let movieDiv = document.createElement('div');
             movieDiv.innerHTML = result.title
             resultsDiv.appendChild(movieDiv)
