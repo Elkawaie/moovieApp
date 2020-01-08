@@ -19,6 +19,7 @@ display:flex; justify-content:space-around; flex-wrap: wrap">
     <div style="width: 30%; border: 5px double red">
         <h2><%= film.title %></h2>
         <p>Film sortit en <%= film.year%></p>
+        <a href="/moovies/<%= film.id%>">En savoir plus</a>
     </div>
     <%}%>
     <%}else{%>

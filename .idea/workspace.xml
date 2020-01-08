@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f1af6b5-0329-4e4e-801c-d57bc33879a5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Schema/movieSchema" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/search-moovie.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search-moovie.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/list-film.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/list-film.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/moovies-details.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/moovies-details.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +18,13 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,7 +74,7 @@
       <workItem from="1577971704871" duration="344000" />
       <workItem from="1577972061381" duration="22467000" />
       <workItem from="1578298262259" duration="23729000" />
-      <workItem from="1578401580603" duration="7052000" />
+      <workItem from="1578401580603" duration="19470000" />
     </task>
     <servers />
   </component>
@@ -74,19 +82,27 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1825" y="158" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1578479098294">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state x="1825" y="158" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578479098294" />
     <state x="1907" y="131" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1577972046197">
       <screen x="1600" y="0" width="1024" height="728" />
     </state>
     <state x="480" y="155" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.860/1600.0.1024.728@0.0.1600.860" timestamp="1577971541575" />
     <state x="1907" y="131" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1577972046197" />
+    <state x="1711" y="0" key="CommitChangelistDialog2" timestamp="1578488068155">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state x="1711" y="0" key="CommitChangelistDialog2/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578488068155" />
     <state x="1900" y="153" key="com.intellij.ide.util.TipDialog" timestamp="1578298294433">
       <screen x="1600" y="0" width="1024" height="728" />
     </state>
     <state x="469" y="181" key="com.intellij.ide.util.TipDialog/0.0.1600.860/1600.0.1024.728@0.0.1600.860" timestamp="1577957337896" />
     <state x="1900" y="153" key="com.intellij.ide.util.TipDialog/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578298294433" />
-    <state x="1768" y="162" key="run.anything.popup" timestamp="1578302160923">
+    <state x="1768" y="162" key="run.anything.popup" timestamp="1578487971646">
       <screen x="1600" y="0" width="1024" height="728" />
     </state>
-    <state x="1768" y="162" key="run.anything.popup/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578302160923" />
+    <state x="1768" y="162" key="run.anything.popup/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578487971646" />
   </component>
 </project>

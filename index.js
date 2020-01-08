@@ -2,17 +2,17 @@
 const express = require('express');
 //On initialise notre application dans la constante
 const app = express();
-const PORT = 3000;
 //Librairie path pour utiliser les chemins absolut
 let path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const upload = multer();
-
+const config = require('./config')
 //On récupére notre librairie mongoose
 const mongoose = require('mongoose')
+const schemaMovie = require('./Schema/movieSchema')
 // url mongodb                  user: motdepasse                                /name of DB
-mongoose.connect('mongodb+srv://root:formation@m2icluster-kpkda.gcp.mongodb.net/films?retryWrites=true&w=majority');
+mongoose.connect(`mongodb+srv://${config.db.user}:${config.db.password}@m2icluster-kpkda.gcp.mongodb.net/films?retryWrites=true&w=majority`);
 //On déclare une connection dans la constante db
 const db  = mongoose.connection;
 
@@ -21,24 +21,10 @@ db.on('error', console.error.bind(console, 'Erreur de connexion: Aucun accés à
 db.once('open', ()=>{
     console.log('Connection réussite')
 })
-// On déclare un schema "mongoose"
-const movieSchema = mongoose.Schema({
-    title: String,
-    year: Number
-})
+
 // On attribut le schema a la Constante Movie
-const Movie = mongoose.model('Movie', movieSchema)
+const Movie = mongoose.model('Movie', schemaMovie.movieSchema)
 // ( Next dans la route /moovie/add )
-
-
-// On déclare un tableau d'objet Json dans le but de simuler un retour d'une BDD
-let films = [
-    {title: 'Le seigneur des anneaux: La comunauté de l\'anneau', year:2001},
-    {title: 'Le seigneur des anneaux: Les deux Tours', year:2002},
-    {title: 'Le seigneur des anneaux: Le retour du roi', year:2003},
-    {title: 'A star is Born', year:2019},
-    {title: 'Hook', year:1991}
-];
 
 
 //On déclare le moteurs de view, et le dossier dans lequel les trouver
@@ -57,7 +43,17 @@ app.get('/', (req, res) => {
 });
 
 app.get('/moovies', (req,res)=>{
-    res.render('list-film', {films: films})
+
+    Movie.find({}, (err, films)=>{
+        if(!err){
+            resultatFilms = films
+            res.render('list-film', {films: resultatFilms})
+        }else{
+            res.render('list-film', {films: 'no Records found'})
+        }
+    });
+
+
 });
 
 app.get('/moovies/search', (req,res)=>{
@@ -73,7 +69,7 @@ app.post('/moovies/add', upload.fields([]), (req,res)=>{
     }else{
         const formData = req.body;
         console.log('formData', formData);
-        //On instancie notre Model et on lui attribut les valeurs correspondante
+        //On instancie notre Schema et on lui attribut les valeurs correspondante
         const myMovie = new Movie({title: req.body.titrefilm, year: req.body.anneefilm});
         // On gére la persistance de l'objet avec la methode error first
         myMovie.save((err, savedMovie)=>{
@@ -83,14 +79,7 @@ app.post('/moovies/add', upload.fields([]), (req,res)=>{
                 console.log("Votre film "+ savedMovie.title +" A bien été ajouté")
             }
         })
-  /*      const newMoovie = {
-            title: req.body.titrefilm,
-            year: req.body.anneefilm
-        };
-        films.push(newMoovie);
-        console.log(films)
-        res.sendStatus(201)
-*/
+
     }
 })
 
@@ -103,21 +92,22 @@ app.post('/moovies/add', upload.fields([]), (req,res)=>{
 // });
 
 //On a créer la route /moovies suivit d'un paramétre
-app.get('/moovies/:id/:title', (req,res) =>{
+app.get('/moovies/:id', (req,res) =>{
     //On récupére le paramétre stocker
     const idFilm = req.params.id;
-    const title = req.params.title ;
+    Movie.findById(idFilm, (err, film)=>{
+        if(!err){
+            res.render('moovies-details', {film: film})
+        }else if(err){
+            console.log(err)
+            res.render('moovies-details', {msg: 'Le film n\'a pas était trouver'})
+        }
+    })
     // On utilise render pour génére une vue, qui
     // contient la valeur de notre constante dans
     //une clef nomée mooviesId
-    res.render('moovies-details',
-        {
-        moovieId: idFilm,
-        moovieTitle: title
-        }
-    )
-})
 
+})
 
 
 
@@ -126,7 +116,7 @@ app.get('/moovies/:id/:title', (req,res) =>{
  * l'application sur un port précis, on peux
  * également renvoyer un message de bon ou
  * mauvais fonctionement*/
-app.listen(PORT, ()=>{
-    console.log(`Ecoute sur le port ${PORT}`)
+app.listen(config.port, ()=>{
+    console.log(`Ecoute sur le port ${config.port}`)
 })
 

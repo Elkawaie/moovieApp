@@ -9,13 +9,22 @@
     <link rel="stylesheet" href="../public/main.css">
 </head>
 <body>
+
+<% if (typeof(film) !== 'undefined'){  %>
         <h1>
             <%/* \<\% Permet de faire du conditionel */%>
             <%/* <\%\= Permet d'afficher une variable */%>
-            Détail de <%= moovieTitle%>
+            Détail du film:  <%= film.title %>
         </h1>
+        <p>
+            L'annee du film est : <%= film.year%>
+        </p>
+        <a href="/moovie/delete/<%=film.id%>">Supprimer</a>
 <p>
-    l'id du film est <%= moovieId %>
+    <% } else { %>
+        <p><%= msg %></p>
+
+    <%}%>
 </p>
 </body>
 </html>

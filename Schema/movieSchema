@@ -1,0 +1,9 @@
+const mongoose = require('mongoose')
+
+// On déclare un schema "mongoose"
+const movieSchema = mongoose.Schema({
+    title: String,
+    year: Number
+})
+
+exports.movieSchema = movieSchema;
