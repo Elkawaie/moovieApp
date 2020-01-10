@@ -129,7 +129,7 @@ app.get('/moovies/delete/:id', (req,res)=>{
         }
     })
 })
-
+const ObjectID = require('mongodb').ObjectID;
 const MongoClient = require('mongodb').MongoClient
 let database;
 MongoClient.connect(`mongodb+srv://${config.db.user}:${config.db.password}@m2icluster-kpkda.gcp.mongodb.net/films?retryWrites=true&w=majority`, (err, DB)=>{
@@ -138,14 +138,23 @@ MongoClient.connect(`mongodb+srv://${config.db.user}:${config.db.password}@m2icl
     }else{
 
         database = DB.db('films')
+
     }
 })
+
 
 //La methode collection crée, ou séléction la collection présente dans la DB
 
 
-app.get('/series/add', (req,res)=>{
+app.get('/series/list', (req,res)=>{
+    database.collection('series').find({}).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        res.render('serie-list', {series: result})
+    });
+})
 
+app.get('/series/add', (req, res)=>{
     res.render('serie-add')
 })
 
@@ -156,6 +165,7 @@ app.post('/series/add', (req, res)=>{
     if(req.body.actif){
         actif = true
     }
+
     database.collection('series').insert({
         titre: req.body.title,
         resume: req.body.description,
@@ -168,7 +178,64 @@ app.post('/series/add', (req, res)=>{
 })
 
 
+app.get('/series/detail/:id', (req,res)=>{
+    let serieId = req.params.id;
+    database.collection('series').findOne({_id: new ObjectID(serieId)},(err, result)=>{
+        if (err) throw err;
+        console.log(result);
+        res.render('serie-detail', {serie: result})
+    });
 
+})
+
+app.get('/series/delete/:id', (req,res)=>{
+    let serieId = req.params.id;
+    database.collection('series').deleteOne({_id: new ObjectID(serieId)}, (err, success)=>{
+      if(!err){
+          database.collection('series').find({}).toArray(function(err, result) {
+              if (err) throw err;
+              console.log(result);
+              res.render('serie-list', {series: result})
+          })
+      }else{
+          throw err
+      }
+    })
+})
+
+app.get('/series/update/:id', (req,res)=>{
+    let serieId = req.params.id;
+    database.collection('series').findOne({_id: new ObjectID(serieId)},(err, result)=>{
+        if (err) throw err;
+        console.log(result);
+        res.render('serie-update', {serie: result})
+    });
+})
+
+app.post('/series/update/:id', (req,res)=>{
+    let serieId = req.params.id;
+    let actif = false;
+
+    if(req.body.actif){
+        actif = true
+    }
+    database.collection('series').updateOne({
+        _id: new ObjectID(serieId)
+    },{$set:{
+        titre: req.body.title,
+        resume: req.body.description,
+        nbsSaison: req.body.nbSaison,
+        actif: actif,
+        defaultValue: 'Serie crée depuis l\'App Moovie App'
+        }}, (err, result)=> {
+        if (err) throw err;
+        database.collection('series').find({}).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            res.render('serie-list', {series: result})
+        })
+    })
+})
 
 
 
