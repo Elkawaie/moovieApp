@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<%- include ('partials/nav') -%>
+<form style="height: 500px;flex-direction: column; display:flex;" action="/series/add" method="post">
+    <label for="title">Titre de la série</label>
+    <input type="text" name="title" id="title">
+    <label for="description">Description</label>
+    <input type="text" name="description">
+    <label for="nbSaison">Nombre de saison</label>
+    <input type="number" name="nbSaison" id="nbSaison">
+
+    <div style="width: 100%">
+        <input type="radio" name="actif" id="actif">
+        <label value="true" for="oui">Actif</label>
+    </div>
+
+    <button type="submit">Valider la serie</button>
+
+</form>
+<%- include ('partials/footer') -%>
+</body>
+</html>

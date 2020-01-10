@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1f1af6b5-0329-4e4e-801c-d57bc33879a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Schema/movieSchema" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/serie-add.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/list-film.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/list-film.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/mongodb/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mongodb/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/moovies-details.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/moovies-details.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/nav.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/nav.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +49,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -74,7 +77,8 @@
       <workItem from="1577971704871" duration="344000" />
       <workItem from="1577972061381" duration="22467000" />
       <workItem from="1578298262259" duration="23729000" />
-      <workItem from="1578401580603" duration="19470000" />
+      <workItem from="1578401580603" duration="23764000" />
+      <workItem from="1578644416112" duration="6170000" />
     </task>
     <servers />
   </component>
@@ -95,11 +99,31 @@
       <screen x="1600" y="0" width="1024" height="728" />
     </state>
     <state x="1711" y="0" key="CommitChangelistDialog2/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578488068155" />
-    <state x="1900" y="153" key="com.intellij.ide.util.TipDialog" timestamp="1578298294433">
+    <state width="971" height="174" key="GridCell.Tab.0.bottom" timestamp="1578655249499">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state width="971" height="174" key="GridCell.Tab.0.bottom/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578655249499" />
+    <state width="971" height="174" key="GridCell.Tab.0.center" timestamp="1578655249499">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state width="971" height="174" key="GridCell.Tab.0.center/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578655249499" />
+    <state width="971" height="174" key="GridCell.Tab.0.left" timestamp="1578655249499">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state width="971" height="174" key="GridCell.Tab.0.left/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578655249499" />
+    <state width="971" height="174" key="GridCell.Tab.0.right" timestamp="1578655249499">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state width="971" height="174" key="GridCell.Tab.0.right/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578655249499" />
+    <state x="1605" y="1" key="SettingsEditor" timestamp="1578496297580">
+      <screen x="1600" y="0" width="1024" height="728" />
+    </state>
+    <state x="1605" y="1" key="SettingsEditor/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578496297580" />
+    <state x="1900" y="153" key="com.intellij.ide.util.TipDialog" timestamp="1578644419347">
       <screen x="1600" y="0" width="1024" height="728" />
     </state>
     <state x="469" y="181" key="com.intellij.ide.util.TipDialog/0.0.1600.860/1600.0.1024.728@0.0.1600.860" timestamp="1577957337896" />
-    <state x="1900" y="153" key="com.intellij.ide.util.TipDialog/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578298294433" />
+    <state x="1900" y="153" key="com.intellij.ide.util.TipDialog/0.0.1600.860/1600.0.1024.728@1600.0.1024.728" timestamp="1578644419347" />
     <state x="1768" y="162" key="run.anything.popup" timestamp="1578487971646">
       <screen x="1600" y="0" width="1024" height="728" />
     </state>

@@ -14,11 +14,11 @@ const schemaMovie = require('./Schema/movieSchema')
 // url mongodb                  user: motdepasse                                /name of DB
 mongoose.connect(`mongodb+srv://${config.db.user}:${config.db.password}@m2icluster-kpkda.gcp.mongodb.net/films?retryWrites=true&w=majority`);
 //On déclare une connection dans la constante db
-const db  = mongoose.connection;
+const db = mongoose.connection;
 
 // On gére l'erreur et la reussite de la connexion via .on et .once
 db.on('error', console.error.bind(console, 'Erreur de connexion: Aucun accés à la DB'))
-db.once('open', ()=>{
+db.once('open', () => {
     console.log('Connection réussite')
 })
 
@@ -32,23 +32,23 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use('/public', express.static('public'));
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.urlencoded({extended: false}))
 /** On utilise la methode get de l'objet app
  * pour intéragir avec les apelle en get sur une
  * url précise ici le "/"*/
 
 app.get('/', (req, res) => {
     //On renvoie dans la réponse un message
-        res.render('index')
+    res.render('index')
 });
 
-app.get('/moovies', (req,res)=>{
+app.get('/moovies', (req, res) => {
 
-    Movie.find({}, (err, films)=>{
-        if(!err){
+    Movie.find({}, (err, films) => {
+        if (!err) {
             resultatFilms = films
             res.render('list-film', {films: resultatFilms})
-        }else{
+        } else {
             res.render('list-film', {films: 'no Records found'})
         }
     });
@@ -56,27 +56,34 @@ app.get('/moovies', (req,res)=>{
 
 });
 
-app.get('/moovies/search', (req,res)=>{
+app.get('/moovies/search', (req, res) => {
     res.render('search-moovie')
 })
-app.get('/moovies/add', (req,res)=>{
-    res.render('addMoovie', {films:films})
+app.get('/moovies/add', (req, res) => {
+    Movie.find({}, (err, films) => {
+        if (!err) {
+            res.render('addMoovie', {films: films})
+        } else {
+            throw err;
+        }
+    });
+
 });
 
-app.post('/moovies/add', upload.fields([]), (req,res)=>{
-    if(!req.body){
-        return res.sendStatus(500)
-    }else{
+app.post('/moovies/add', upload.fields([]), (req, res) => {
+    if (!req.body) {
+         res.sendStatus(500)
+    } else {
         const formData = req.body;
         console.log('formData', formData);
         //On instancie notre Schema et on lui attribut les valeurs correspondante
         const myMovie = new Movie({title: req.body.titrefilm, year: req.body.anneefilm});
         // On gére la persistance de l'objet avec la methode error first
-        myMovie.save((err, savedMovie)=>{
-            if(err){
+        myMovie.save((err, savedMovie) => {
+            if (err) {
                 console.log(err)
-            }else{
-                console.log("Votre film "+ savedMovie.title +" A bien été ajouté")
+            } else {
+                console.log("Votre film " + savedMovie.title + " A bien été ajouté")
             }
         })
 
@@ -92,13 +99,13 @@ app.post('/moovies/add', upload.fields([]), (req,res)=>{
 // });
 
 //On a créer la route /moovies suivit d'un paramétre
-app.get('/moovies/:id', (req,res) =>{
+app.get('/moovies/:id', (req, res) => {
     //On récupére le paramétre stocker
     const idFilm = req.params.id;
-    Movie.findById(idFilm, (err, film)=>{
-        if(!err){
+    Movie.findById(idFilm, (err, film) => {
+        if (!err) {
             res.render('moovies-details', {film: film})
-        }else if(err){
+        } else if (err) {
             console.log(err)
             res.render('moovies-details', {msg: 'Le film n\'a pas était trouver'})
         }
@@ -109,6 +116,76 @@ app.get('/moovies/:id', (req,res) =>{
 
 })
 
+app.get('/moovies/delete/:id', (req,res)=>{
+    const filmId = req.params.id
+    Movie.findByIdAndDelete(filmId, {},(err,filmdeleted)=>{
+        if(!err){
+           Movie.find({}, (err, films)=>{
+               if(!err){
+                   res.render('list-film', {films: films, suprMsg: filmdeleted})
+               }
+
+           })
+        }
+    })
+})
+
+const MongoClient = require('mongodb').MongoClient
+let database;
+MongoClient.connect(`mongodb+srv://${config.db.user}:${config.db.password}@m2icluster-kpkda.gcp.mongodb.net/films?retryWrites=true&w=majority`, (err, DB)=>{
+    if(err){
+        throw err;
+    }else{
+
+        database = DB.db('films')
+    }
+})
+
+//La methode collection crée, ou séléction la collection présente dans la DB
+
+
+app.get('/series/add', (req,res)=>{
+
+    res.render('serie-add')
+})
+
+app.post('/series/add', (req, res)=>{
+    console.log(database)
+    let actif = false;
+
+    if(req.body.actif){
+        actif = true
+    }
+    database.collection('series').insert({
+        titre: req.body.title,
+        resume: req.body.description,
+        nbsSaison: req.body.nbSaison,
+        actif: actif,
+        defaultValue: 'Serie crée depuis l\'App Moovie App'
+    })
+    console.log(req.body)
+    res.sendStatus(201)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -116,7 +193,9 @@ app.get('/moovies/:id', (req,res) =>{
  * l'application sur un port précis, on peux
  * également renvoyer un message de bon ou
  * mauvais fonctionement*/
-app.listen(config.port, ()=>{
+
+
+app.listen(config.port, () => {
     console.log(`Ecoute sur le port ${config.port}`)
 })
 
